@@ -38,8 +38,8 @@ def main():
         # Get the price data of the tickers
         df = get_df(ticker, current_date)
 
-        # Visualize the closing price history of the ticker
-        plot_close(ticker, df, MVP_VCP=False, save=True)
+        # # Visualize the closing price history of the ticker
+        # plot_close(ticker, df, MVP_VCP=False, save=True)
 
     # Calculate the JdK RS-Ratio and Momentum
     index_df = get_JdK(sectors, index_df, current_date)
