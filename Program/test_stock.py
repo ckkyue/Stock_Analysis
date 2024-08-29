@@ -13,7 +13,7 @@ start = dt.datetime.now()
 current_date = start.strftime("%Y-%m-%d")
 
 # Choose the stocks
-stocks = ["IBM"]
+stocks = ["CVLT"]
 
 # Iterate over stocks
 for stock in stocks:
@@ -23,8 +23,8 @@ for stock in stocks:
     plot_stocks(["^GSPC", "^IXIC", stock], current_date, save=True)
 
 # Get the stop loss and target price of a stock
-stock = "QID"
-stoploss, stoploss_pct, target, target_pct = stoploss_target(stock, 43.6, current_date)
+stock = "CVLT"
+stoploss, stoploss_pct, target, target_pct = stoploss_target(stock, 152, current_date)
 print(f"Stoploss: {stoploss}, {stoploss_pct} (%).")
 print(f"Target price: {target}, {target_pct} (%).")
 
