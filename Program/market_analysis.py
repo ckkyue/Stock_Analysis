@@ -11,7 +11,6 @@ def main():
 
     # Initial setup
     current_date = start.strftime("%Y-%m-%d")
-    current_date = "2024-08-24"
 
     # Variables
     NASDAQ_all = True
