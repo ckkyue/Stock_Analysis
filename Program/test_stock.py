@@ -23,8 +23,8 @@ for stock in stocks:
     plot_stocks(["^GSPC", "^IXIC", stock], current_date, save=True)
 
 # Get the stop loss and target price of a stock
-stock = "CVLT"
-stoploss, stoploss_pct, target, target_pct = stoploss_target(stock, 152, current_date)
+stock = "EGO"
+stoploss, stoploss_pct, target, target_pct = stoploss_target(stock, 16.35, "2024-09-11")
 print(f"Stoploss: {stoploss}, {stoploss_pct} (%).")
 print(f"Target price: {target}, {target_pct} (%).")
 
