@@ -11,6 +11,7 @@ def main():
 
     # Initial setup
     current_date = start.strftime("%Y-%m-%d")
+    current_date = "2024-09-14"
 
     # Variables
     NASDAQ_all = True
@@ -49,24 +50,24 @@ def main():
     sectors_improving = []
     sectors_lagging = []
 
-    # # Iterate over all sectors
-    # for sector in sectors:
-    #     if index_df[f"{sector} JdK RS-Ratio"].iloc[-1] > 100:
-    #         if index_df[f"{sector} JdK RS-Momentum"].iloc[-1] > 100:
-    #             sectors_leading.append(sector)
-    #         else:
-    #             sectors_weakening.append(sector)
-    #     else:
-    #         if index_df[f"{sector} JdK RS-Momentum"].iloc[-1] > 100:
-    #             sectors_improving.append(sector)
-    #         else:
-    #             sectors_lagging.append(sector)
+    # Iterate over all sectors
+    for sector in sectors:
+        if index_df[f"{sector} JdK RS-Ratio"].iloc[-1] > 100:
+            if index_df[f"{sector} JdK RS-Momentum"].iloc[-1] > 100:
+                sectors_leading.append(sector)
+            else:
+                sectors_weakening.append(sector)
+        else:
+            if index_df[f"{sector} JdK RS-Momentum"].iloc[-1] > 100:
+                sectors_improving.append(sector)
+            else:
+                sectors_lagging.append(sector)
 
-    # # Print the classified sectors
-    # print(f"Leading sectors: {', '.join(sectors_leading)}")
-    # print(f"Weakening sectors: {', '.join(sectors_weakening)}")
-    # print(f"Improving sectors: {', '.join(sectors_improving)}")
-    # print(f"Lagging sectors: {', '.join(sectors_lagging)}")
+    # Print the classified sectors
+    print(f"Leading sectors: {', '.join(sectors_leading)}")
+    print(f"Weakening sectors: {', '.join(sectors_weakening)}")
+    print(f"Improving sectors: {', '.join(sectors_improving)}")
+    print(f"Lagging sectors: {', '.join(sectors_lagging)}")
 
     # # Iterate over all sectors
     # for sector in sectors:
