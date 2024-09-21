@@ -11,7 +11,6 @@ def main():
 
     # Initial setup
     current_date = start.strftime("%Y-%m-%d")
-    current_date = "2024-09-14"
 
     # Variables
     NASDAQ_all = True
@@ -33,13 +32,13 @@ def main():
     # Get the price data of the index
     index_df = get_df(index_name, current_date)
 
-    # # Iterate over all indices and sectors
-    # for ticker in index_names + sectors:
-    #     # Get the price data of the tickers
-    #     df = get_df(ticker, current_date)
+    # Iterate over all indices and sectors
+    for ticker in index_names + sectors:
+        # Get the price data of the tickers
+        df = get_df(ticker, current_date)
 
-    #     # Visualize the closing price history of the ticker
-    #     plot_close(ticker, df, MVP_VCP=False, save=True)
+        # Visualize the closing price history of the ticker
+        plot_close(ticker, df, MVP_VCP=False, save=True)
 
     # Calculate the JdK RS-Ratio and Momentum
     index_df = get_JdK(sectors, index_df, current_date)
@@ -69,10 +68,10 @@ def main():
     print(f"Improving sectors: {', '.join(sectors_improving)}")
     print(f"Lagging sectors: {', '.join(sectors_lagging)}")
 
-    # # Iterate over all sectors
-    # for sector in sectors:
-    #     # Plot the JdK RS-Ratio and Momentum of the sector
-    #     plot_JdK(sector, sector_dict, index_df, save=True)
+    # Iterate over all sectors
+    for sector in sectors:
+        # Plot the JdK RS-Ratio and Momentum of the sector
+        plot_JdK(sector, sector_dict, index_df, save=True)
 
     # Plot the relative rotation graph
     plot_rrg(sectors, sector_dict, index_df, save=True)
