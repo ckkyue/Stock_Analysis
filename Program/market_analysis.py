@@ -11,7 +11,6 @@ def main():
 
     # Initial setup
     current_date = start.strftime("%Y-%m-%d")
-    current_date = "2024-09-21"
 
     # Variables
     NASDAQ_all = True
@@ -33,13 +32,13 @@ def main():
     # Get the price data of the index
     index_df = get_df(index_name, current_date)
 
-    # # Iterate over all indices and sectors
-    # for ticker in index_names + sectors:
-    #     # Get the price data of the tickers
-    #     df = get_df(ticker, current_date)
+    # Iterate over all indices and sectors
+    for ticker in index_names + sectors:
+        # Get the price data of the tickers
+        df = get_df(ticker, current_date)
 
-    #     # Visualize the closing price history of the ticker
-    #     plot_close(ticker, df, MVP_VCP=False, save=True)
+        # Visualize the closing price history of the ticker
+        plot_close(ticker, df, MVP_VCP=False, save=True)
 
     # Calculate the JdK RS-Ratio and Momentum
     index_df = get_JdK(sectors, index_df, current_date)
