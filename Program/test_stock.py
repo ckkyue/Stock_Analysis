@@ -11,9 +11,10 @@ start = dt.datetime.now()
 
 # Initial setup
 current_date = start.strftime("%Y-%m-%d")
+current_date = "2024-09-25"
 
 # Choose the stocks
-stocks = ["ACIW", "NRG", "CRS"]
+stocks = ["PLTR", "ONON", "VRT", "BURL"]
 
 # # Iterate over stocks
 # for stock in stocks:
@@ -23,10 +24,13 @@ stocks = ["ACIW", "NRG", "CRS"]
 #     plot_stocks(["^GSPC", "^GSPC", stock], current_date, save=True)
 
 # Get the stop loss and target price of a stock
-stock = "ACIW"
-stoploss, stoploss_pct, target, target_pct = stoploss_target(stock, 49.623, current_date)
-print(f"Stoploss: {stoploss}, {stoploss_pct} (%).")
-print(f"Target price: {target}, {target_pct} (%).")
+for stock in stocks:
+    df = get_df(stock, current_date)
+    current_close = df["Close"].iloc[-1]
+    stoploss, stoploss_pct, target, target_pct = stoploss_target(stock, current_close, current_date)
+    print(f"Current close: {round(current_close, 2)}.")
+    print(f"Stoploss: {stoploss}, {stoploss_pct} (%).")
+    print(f"Target price: {target}, {target_pct} (%).")
 
 # Print the end time and total runtime
 end = dt.datetime.now()
