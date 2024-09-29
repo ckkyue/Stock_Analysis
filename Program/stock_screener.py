@@ -101,6 +101,7 @@ def process_stock(stock, index_name, end_date, current_date, stock_data, stock_i
             SMA_20 = df["SMA 20"].iloc[-1]
             SMA_50 = df["SMA 50"].iloc[-1]
             SMA_200 = df["SMA 200"].iloc[-1]
+            SMA_20_slope = df["SMA 20"].diff().iloc[-1]
             SMA_50_slope = df["SMA 50"].rolling(window=5).apply(slope_reg).iloc[-1]
             SMA_200_slope = df["SMA 200"].rolling(window=5).apply(slope_reg).iloc[-1]
         except Exception:
@@ -108,6 +109,7 @@ def process_stock(stock, index_name, end_date, current_date, stock_data, stock_i
             EMA_20 = df["EMA 20"].iloc[-1]
             EMA_50 = df["EMA 50"].iloc[-1]
             EMA_200 = df["EMA 200"].iloc[-1]
+            EMA_20_slope = df["SMA 20"].diff().iloc[-1]
             EMA_50_slope = df["EMA 50"].rolling(window=5).apply(slope_reg).iloc[-1]
             EMA_200_slope = df["EMA 200"].rolling(window=5).apply(slope_reg).iloc[-1]
 

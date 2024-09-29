@@ -57,10 +57,15 @@ def get_df(stock, end_date, redownload=False):
 
         # Rename the file as a delisted file if the stock has been delisted
         else:
-            print(f"The stock {stock} has been delisted, and the price data cannot be updated.")
-            delisted_file = os.path.join(folder_path, f"{stock}_delisted.csv")
-            os.rename(os.path.join(folder_path, f"{stock}_{max_date}.csv"), delisted_file)
-            df = pd.read_csv(delisted_file)
+            try:
+                print(f"The stock {stock} has been delisted, and the price data cannot be updated.")
+                delisted_file = os.path.join(folder_path, f"{stock}_delisted.csv")
+                os.rename(os.path.join(folder_path, f"{stock}_{max_date}.csv"), delisted_file)
+                df = pd.read_csv(delisted_file)
+            except Exception as e:
+                print(f"Error for {stock}: {e}.")
+                
+                return None
 
     # Read the most updated data
     else:
@@ -104,10 +109,10 @@ def get_earning_dates(stock):
 def stock_market(end_date, current_date, index_name, NASDAQ_all):
     # HKEX
     if index_name == "^HSI":
-        stocks = pd.read_excel("Program/ListOfSecurities.xlsx", usecols="A")
-        stocks.head()
-        for i in range(stocks.shape[0]):
-            tickers.append(str(stocks["Stock Code"].iloc[i]).zfill(4) + ".HK")
+        hkex_df = pd.read_excel("Program/ListOfSecurities.xlsx", skiprows=2)
+        hkex_df = hkex_df[hkex_df["Category"] == "Equity"]
+        stocks = hkex_df["Stock Code"].tolist()
+        tickers = [str(int(stock)).zfill(4) + '.HK' for stock in stocks]
 
     # S&P 500
     elif not NASDAQ_all and index_name == "^GSPC":
