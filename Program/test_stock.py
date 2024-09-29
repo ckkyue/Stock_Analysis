@@ -11,17 +11,16 @@ start = dt.datetime.now()
 
 # Initial setup
 current_date = start.strftime("%Y-%m-%d")
-current_date = "2024-09-25"
 
 # Choose the stocks
-stocks = ["PLTR", "ONON", "VRT", "BURL"]
+stocks = ["1810.HK", "2618.HK", "3690.HK"]
 
-# # Iterate over stocks
-# for stock in stocks:
-#     df = get_df(stock, current_date)
-#     plot_close(stock, df, save=True)
-#     plot_MFI_RSI(stock, df, save=True)
-#     plot_stocks(["^GSPC", "^GSPC", stock], current_date, save=True)
+# Iterate over stocks
+for stock in stocks:
+    df = get_df(stock, current_date)
+    plot_close(stock, df, show=200, save=True)
+    plot_MFI_RSI(stock, df, show=375, save=True)
+    plot_stocks(["^GSPC", "^GSPC", stock], current_date, save=True)
 
 # Get the stop loss and target price of a stock
 for stock in stocks:
