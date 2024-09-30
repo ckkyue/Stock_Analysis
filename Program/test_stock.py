@@ -13,7 +13,7 @@ start = dt.datetime.now()
 current_date = start.strftime("%Y-%m-%d")
 
 # Choose the stocks
-stocks = ["1810.HK", "2618.HK", "3690.HK"]
+stocks = ["0700.HK", "1810.HK", "1339.HK", "2618.HK", "3690.HK", "6881.HK"]
 
 # Iterate over stocks
 for stock in stocks:
