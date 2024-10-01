@@ -543,7 +543,7 @@ def main():
     end_dates = [current_date]
 
     # Variables
-    NASDAQ_all = False
+    NASDAQ_all = True
     period_hk = 60 # Period for HK stocks
     period_us = 252 # Period for US stocks
     RS = 90
@@ -551,7 +551,7 @@ def main():
     backtest = False
 
     # Index
-    index_name = "^HSI"
+    index_name = "^GSPC"
     index_dict = {"^HSI": "HKEX", "^GSPC": "S&P 500", "^IXIC": "NASDAQ Composite"}
 
     # Stock selection
