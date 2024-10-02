@@ -49,13 +49,14 @@ df = calculate_ZScore(df, ["MFI", "RSI"], period=252*10)
 filename = f"Price data/{stock}_{current_date}.csv"
 df.to_csv(filename)
 
-periods = [5, 10, 20, 60]
+periods = [5, 10, 15, 20, 30, 60]
 for period in periods:
     df[f"Close {period} Later"] = df["Close"].shift(- period)
     df[f"{period} Days Return (%)"] = ((df[f"Close {period} Later"] / df["Close"]) - 1) * 100
 
 # Filter for MFI/RSI Z-Score >= 2.5
 df_MFIRSI_filter = df[(df["MFI Z-Score"] >= 2.5)]
+print(df_MFIRSI_filter)
 
 # Plot histogram
 for period in periods:
