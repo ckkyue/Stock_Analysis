@@ -9,7 +9,7 @@ import pandas as pd
 from scipy.signal import argrelextrema
 import seaborn as sns
 from statsmodels.tsa.stattools import acf
-from technicals import add_indicator
+from technicals import *
 
 # Visualize the closing price history
 def plot_close(stock, df, show=120, MVP_VCP=True, save=False):
@@ -187,29 +187,42 @@ def plot_MFI_RSI(stock, df, show=252, save=False):
     # Add technical indicators to the data
     add_indicator(df)
 
+    # Calculate the MFI/RSI Z-Score
+    df = MFI_ZScore(df, show)
+    df = RSI_ZScore(df, show)
+
     # Filter the data
     df = df[- show:]
 
-    # Create a figure with two subplots, one for the closing price and one for the MFI/RSI indicator
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8), gridspec_kw={"height_ratios": [5, 1]}, sharex=True)
+    # Create a figure with three subplots, one for the closing price, one for the MFI/RSI indicator, and one for the MFI Z-Score
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(8, 8), gridspec_kw={"height_ratios": [3, 1, 1]}, sharex=True)
 
-    # Plot the closing price on the top subplot
+    # Plot the closing price on the firsst subplot
     ax1.plot(df["Close"], label="Close")
 
-    # Set the y label of the top subplot
+    # Set the y label of the first subplot
     ax1.set_ylabel("Price")
 
-    # Set the x limit of the top subplot
+    # Set the x limit of the first subplot
     ax1.set_xlim(df.index[0], df.index[-1])
 
-    # Plot the MFI/RSI indicator on the bottom subplot
+    # Plot the MFI/RSI indicator on the second subplot
     ax2.plot(df["MFI"], label="MFI", color="orange", alpha=0.7)
     ax2.plot(df["RSI"], label="RSI", color="green", alpha=0.7)
     ax2.axhline(y=20, linestyle="dotted", label="Oversold", color="red")
     ax2.axhline(y=80, linestyle="dotted", label="Overbought", color="red")
 
-    # Set the y label of the bottom subplot
+    # Set the y label of the second subplot
     ax2.set_ylabel(f"MFI/RSI")
+
+    # Plot the MFI z-score on the third subplot
+    ax3.plot(df["MFI Z-Score"], label=r"MFI Z-Score", color="orange", alpha=0.7)
+    ax3.plot(df["RSI Z-Score"], label=r"RSI Z-Score", color="green", alpha=0.7)
+    ax3.axhline(y=2, linestyle="dotted", label="Oversold", color="red")
+    ax3.axhline(y=-2, linestyle="dotted", label="Overbought", color="red")
+
+    # Set the y label of the bottom subplot
+    ax3.set_ylabel("MFI/RSI Z-Score")
 
     # Set the x label
     plt.xlabel("Date")

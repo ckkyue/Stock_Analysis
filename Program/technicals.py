@@ -75,7 +75,7 @@ def RSI(data, period=14, column="Close"):
     data["RSI"] = RSI
 
     return data
-    
+
 # Calculate the Relative Momentum Index (RMI)
 def RMI(data, period=20, momentum=3, column="Close"):
     data_copy = data.copy()
@@ -247,6 +247,20 @@ def FTD_DD(data, period=50, threshold=0.015, column="Close"):
 def multiple_FTD_DD(data, period=10, columns=["FTD", "DD"]):
     data["Multiple FTDs"] = data[columns[0]].rolling(period).sum() >= 4
     data["Multiple DDs"] = data[columns[1]].rolling(period).sum() >= 4
+
+    return data
+
+# Calculate the Z-Score
+def calculate_ZScore(data, indicators, period):
+    for indicator in indicators:
+        # Calculat the mean of indicator
+        data[f"{indicator} Mean"] = data[f"{indicator}"].rolling(window=period).mean()
+
+        # Calculate the SD of indicator
+        data[f"{indicator} SD"] = data[f"{indicator}"].rolling(window=period).std()
+
+        # Calculate the z-score of indicator
+        data[f"{indicator} Z-Score"] = (data[f"{indicator}"] - data[f"{indicator} Mean"]) / data[f"{indicator} SD"]
 
     return data
 
