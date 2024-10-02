@@ -43,7 +43,7 @@ df = get_df(stock, current_date)
 
 # Add indicators
 df = add_indicator(df)
-df = calculate_ZScore(df, ["MFI", "RSI"], period=252*10)
+df = calculate_ZScore(df, ["MFI", "RSI"], period=252*15)
 
 # Save the data of the index to a .csv file
 filename = f"Price data/{stock}_{current_date}.csv"
