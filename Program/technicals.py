@@ -330,16 +330,18 @@ def market_breadth(end_date, index_df, tickers, periods=[20, 50, 200]):
         # Get the price data of the ticker
         df = get_df(ticker, end_date)
 
-        # Preprocess the data to get the market breadth and AD line
-        df = trend_AD(df)
+        # Check if the data exist
+        if df is not None:
+            # Preprocess the data to get the market breadth and AD line
+            df = trend_AD(df)
 
-        # Calculate the number of tickers above SMAs
-        for i in periods:
-            index_df.loc[:, f"Above SMA {str(i)}"] = index_df.loc[:, f"Above SMA {str(i)}"].add(df[f"Above SMA {str(i)}"], fill_value=0)
-        
-        # Accumulate the advancing (A) and declining (D) values for all tickers
-        index_df.loc[:, "A"] = index_df.loc[:, "A"].add(df["A"], fill_value=0)
-        index_df.loc[:, "D"] = index_df.loc[:, "D"].add(df["D"], fill_value=0)
+            # Calculate the number of tickers above SMAs
+            for i in periods:
+                index_df.loc[:, f"Above SMA {str(i)}"] = index_df.loc[:, f"Above SMA {str(i)}"].add(df[f"Above SMA {str(i)}"], fill_value=0)
+            
+            # Accumulate the advancing (A) and declining (D) values for all tickers
+            index_df.loc[:, "A"] = index_df.loc[:, "A"].add(df["A"], fill_value=0)
+            index_df.loc[:, "D"] = index_df.loc[:, "D"].add(df["D"], fill_value=0)
 
     # Calculate the AD line
     index_df["AD Change"] = index_df["A"] - index_df["D"]

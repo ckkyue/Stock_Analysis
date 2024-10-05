@@ -17,8 +17,8 @@ def main():
 
     # Index
     index_name = "^GSPC"
-    index_names = ["^GSPC", "^IXIC", "^DJI", "IWM", "FFTY", "QQQE"]
-    index_dict = {"^GSPC": "S&P 500", "^IXIC": "NASDAQ Composite", "^DJI": "Dow Jones Industrial Average", 
+    index_names = ["^HSI", "^GSPC", "^IXIC", "^DJI", "IWM", "FFTY", "QQQE"]
+    index_dict = {"^HSI": "HKEX", "^GSPC": "S&P 500", "^IXIC": "NASDAQ Composite", "^DJI": "Dow Jones Industrial Average", 
                   "IWM": "iShares Russell 2000 ETF", "FFTY": "Innovator IBD 50 ETF", "QQQE": "NASDAQ-100 Equal Weighted ETF"}
     
     # Sectors
@@ -80,6 +80,8 @@ def main():
     plot_sector_selected(current_date, "^GSPC", index_dict, NASDAQ_all=NASDAQ_all, save=True)
 
     # Get the list of tickers of stock market
+    index_name = "^GSPC"
+    index_df = get_df(index_name, current_date)
     tickers = stock_market(current_date, current_date, index_name, False)
 
     # Calculate the market breadth indicators

@@ -44,18 +44,14 @@ def get_df(stock, end_date, redownload=False):
             if max_date != "N/A":
                 if max_date < end_date:
                     os.remove(os.path.join(folder_path, f"{stock}_{max_date}.csv"))
-
-        # Rename the file as a delisted file if the stock has been delisted
+                    
         else:
             try:
-                print(f"The stock {stock} has been delisted, and the price data cannot be updated.")
-                delisted_file = os.path.join(folder_path, f"{stock}_delisted.csv")
-                os.rename(os.path.join(folder_path, f"{stock}_{max_date}.csv"), delisted_file)
-                df = pd.read_csv(delisted_file)
+                print(f"The price data of {stock} cannot be updated.")
             except Exception as e:
                 print(f"Error for {stock}: {e}.")
                 
-                return None
+            return None
 
     # Read the most updated data
     else:
