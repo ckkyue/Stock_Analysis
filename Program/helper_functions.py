@@ -32,16 +32,6 @@ def get_df(stock, end_date, redownload=False):
             if date < max_date:
                 os.remove(os.path.join(folder_path, f"{stock}_{date}.csv"))
 
-    # Return the old price data if the stock has been delisted
-    if "delisted" in dates:
-        print(f"The stock {stock} has been delisted, and the price data cannot be updated.")
-        delisted_file = os.path.join(folder_path, f"{stock}_delisted.csv")
-        df = pd.read_csv(delisted_file)
-        df["Date"] = pd.to_datetime(df["Date"])
-        df.set_index("Date", inplace=True)
-
-        return df
-
     # Save the price data to a .csv file if the most updated data do not exist
     filename = os.path.join(folder_path, f"{stock}_{end_date}.csv")
     if not os.path.isfile(filename) or redownload:

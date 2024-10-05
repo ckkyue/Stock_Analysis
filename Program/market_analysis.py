@@ -68,10 +68,10 @@ def main():
     print(f"Improving sectors: {', '.join(sectors_improving)}")
     print(f"Lagging sectors: {', '.join(sectors_lagging)}")
 
-    # Iterate over all sectors
-    for sector in sectors:
-        # Plot the JdK RS-Ratio and Momentum of the sector
-        plot_JdK(sector, sector_dict, index_df, save=True)
+    # # Iterate over all sectors
+    # for sector in sectors:
+    #     # Plot the JdK RS-Ratio and Momentum of the sector
+    #     plot_JdK(sector, sector_dict, index_df, save=True)
 
     # Plot the relative rotation graph
     plot_rrg(sectors, sector_dict, index_df, save=True)
