@@ -295,7 +295,13 @@ def process_stock(stock, index_name, end_date, current_date, stock_data, stock_i
         return None
     
 # Calculate the EM rating
-def EM_rating(data, factors, target_columns=["MVP Rating", "EPS this Y (%)", "EPS Q/Q (%)"]):
+def EM_rating(index_name, data, factors):
+    # Define the target columns based on index name
+    if index_name == "^HSI":
+        target_columns = ["MVP Rating", "Estimated EPS growth (%)", "Earnings this Q (%)"]
+    else:
+        target_columns = ["MVP Rating", "EPS this Y (%)", "EPS Q/Q (%)"]
+
     data_copy = data.copy()
 
     # Extract the number of stocks
@@ -458,7 +464,7 @@ def select_stocks(end_dates, current_date, index_name, index_dict,
         if index_name == "^HSI":
             pass
         else:
-            export_list = EM_rating(export_list, factors)
+            export_list = EM_rating(index_name, export_list, factors)
 
         # Format the end date
         end_date_fmt = dt.datetime.strptime(end_date, "%Y-%m-%d").strftime("%d-%m-%y")
@@ -551,7 +557,7 @@ def main():
     backtest = False
 
     # Index
-    index_name = "^GSPC"
+    index_name = "^HSI"
     index_dict = {"^HSI": "HKEX", "^GSPC": "S&P 500", "^IXIC": "NASDAQ Composite"}
 
     # Stock selection
