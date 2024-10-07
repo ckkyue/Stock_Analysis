@@ -461,10 +461,7 @@ def select_stocks(end_dates, current_date, index_name, index_dict,
         export_data = [process_stock(stock, index_name, end_date, current_date, stock_data, stock_info_data, rs_volume_df, backtest=backtest) for stock in tqdm(stocks)]
         export_data = [row for row in export_data if row is not None]
         export_list = pd.DataFrame(export_data)
-        if index_name == "^HSI":
-            pass
-        else:
-            export_list = EM_rating(index_name, export_list, factors)
+        export_list = EM_rating(index_name, export_list, factors)
 
         # Format the end date
         end_date_fmt = dt.datetime.strptime(end_date, "%Y-%m-%d").strftime("%d-%m-%y")
