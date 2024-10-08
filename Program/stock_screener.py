@@ -531,6 +531,7 @@ def main():
 
     # Initial setup
     current_date = start.strftime("%Y-%m-%d")
+    current_date = "2024-10-09"
 
     # Define the paths for the folders
     folders = ["Price data"]
@@ -554,7 +555,7 @@ def main():
     backtest = False
 
     # Index
-    index_name = "^HSI"
+    index_name = "^GSPC"
     index_dict = {"^HSI": "HKEX", "^GSPC": "S&P 500", "^IXIC": "NASDAQ Composite"}
 
     # Stock selection
