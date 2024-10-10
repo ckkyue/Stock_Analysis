@@ -3,7 +3,7 @@ import ast
 import concurrent.futures
 import datetime as dt
 from fundamentals import *
-from helper_functions import generate_end_dates, get_currency, get_df, get_earning_dates, get_infix, get_rs_volume, slope_reg, stock_market
+from helper_functions import generate_end_dates, get_currency, get_df, get_earning_dates, get_excel_filename, get_infix, get_rs_volume, slope_reg, stock_market
 import numpy as np
 import pandas as pd
 from pandas import ExcelWriter as EW
@@ -346,22 +346,16 @@ def select_stocks(end_dates, current_date, index_name, index_dict,
     else:
         period = period_us
 
-    # Define the path for the "Result" folder
-    result_folder = "Result"
-
     # Get the infix
     infix = get_infix(index_name, index_dict, NASDAQ_all)
 
+    # Define the result folder
+    result_folder = "Result"
+
     # Iterate over all end dates
     for end_date in end_dates.copy():
-        # Format the end date
-        end_date_fmt = dt.datetime.strptime(end_date, "%Y-%m-%d").strftime("%d-%m-%y")
-
-        # Define the folder path
-        folder_path = os.path.join(result_folder, end_date_fmt)
-
         # Define the filename
-        filename = os.path.join(folder_path, f"{infix}stock_{end_date_fmt}period{period}RS{RS}.xlsx")
+        filename = get_excel_filename(end_date, index_name, index_dict, period_hk, period_us, RS, NASDAQ_all, result_folder)
 
         # Remove the end date if the file exists
         if os.path.isfile(filename):
@@ -486,7 +480,7 @@ def select_stocks(end_dates, current_date, index_name, index_dict,
             os.makedirs(folder_path)
 
         # Export the results to an Excel file inside the "end_date_fmt" folder
-        filename = os.path.join(folder_path, f"{infix}stock_{end_date_fmt}period{period}RS{RS}.xlsx")
+        filename = get_excel_filename(end_date, index_name, index_dict, period_hk, period_us, RS, NASDAQ_all, result_folder)
         writer = EW(filename)
         df.to_excel(writer, sheet_name="Sheet1", index=False)
         writer._save()
@@ -560,7 +554,7 @@ def main():
     end_dates = [current_date]
     
     # Variables
-    NASDAQ_all = False
+    NASDAQ_all = True
     period_hk = 60 # Period for HK stocks
     period_us = 252 # Period for US stocks
     RS = 90

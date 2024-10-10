@@ -91,6 +91,28 @@ def get_earning_dates(stock):
 
     return earning_dates
 
+# Get the Excel filename
+def get_excel_filename(end_date, index_name, index_dict, period_hk, period_us, RS, NASDAQ_all, result_folder):
+        # Select period based on HK/US
+        if index_name == "^HSI":
+            period = period_hk
+        else:
+            period = period_us
+
+        # Get the infix
+        infix = get_infix(index_name, index_dict, NASDAQ_all)
+
+        # Format the end date
+        end_date_fmt = dt.datetime.strptime(end_date, "%Y-%m-%d").strftime("%d-%m-%y")
+
+        # Define the folder path
+        folder_path = os.path.join(result_folder, end_date_fmt)
+
+        # Define the Excel filename
+        excel_filename = os.path.join(folder_path, f"{infix}stock_{end_date_fmt}period{period}RS{RS}.xlsx")
+
+        return excel_filename
+
 # Get the list of tickers of stock market
 def stock_market(end_date, current_date, index_name, NASDAQ_all):
     # HKEX
