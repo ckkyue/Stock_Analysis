@@ -63,6 +63,7 @@ def screen_excel(excel_filename, sectors_excel_leading, sectors_excel_improving)
 
     # Save the changes to the Excel file
     workbook.save(excel_filename)
+    print("Changes made to the Excel file.")
 
 # Main function
 def main():
@@ -73,7 +74,7 @@ def main():
     current_date = start.strftime("%Y-%m-%d")
 
    # Variables
-    NASDAQ_all = True
+    NASDAQ_all = False
     period_hk = 60 # Period for HK stocks
     period_us = 252 # Period for US stocks
     RS = 90
@@ -171,8 +172,8 @@ def main():
     index_df = market_breadth(current_date, index_df, tickers)
 
     # Save the data of the index to a .csv file
-    filename = f"Price data/{index_name}_{current_date}.csv"
-    index_df.to_csv(filename)
+    index_filename = f"Price data/{index_name}_{current_date}.csv"
+    index_df.to_csv(index_filename)
 
     # Visualize the closing price history and other technical indicators
     plot_market_breadth(index_name, index_df, tickers, save=True)
