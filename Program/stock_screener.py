@@ -474,8 +474,8 @@ def select_stocks(end_dates, current_date, index_name, index_dict,
         volatility_60_zscore = (df["Volatility 60 (%)"] - volatility_60_mean) / volatility_60_sd
 
         # Insert the z-scores
-        df.insert(df.columns.get_loc("Volatility 20 (%)") + 1, "Volatility 20 Z-Score (%)", volatility_20_zscore)
-        df.insert(df.columns.get_loc("Volatility 60 (%)") + 1, "Volatility 60 Z-Score (%)", volatility_60_zscore)
+        df.insert(df.columns.get_loc("Volatility 20 (%)") + 1, "Volatility 20 Z-Score", volatility_20_zscore)
+        df.insert(df.columns.get_loc("Volatility 60 (%)") + 1, "Volatility 60 Z-Score", volatility_60_zscore)
 
         # Format the end date
         end_date_fmt = dt.datetime.strptime(end_date, "%Y-%m-%d").strftime("%d-%m-%y")
@@ -568,7 +568,7 @@ def main():
     backtest = False
 
     # Index
-    index_name = "^HSI"
+    index_name = "^GSPC"
     index_dict = {"^HSI": "HKEX", "^GSPC": "S&P 500", "^IXIC": "NASDAQ Composite"}
 
     # Stock selection
